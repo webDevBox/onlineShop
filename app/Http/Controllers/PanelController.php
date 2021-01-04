@@ -162,9 +162,10 @@ class PanelController extends Controller
             return redirect('/');
         }
        $user=User::find($id);
-       $detail=detail::where('user',$id)->where('status',0)->get();
+       $active=detail::where('user',$id)->where('status',0)->get();
+       $del=detail::where('user',$id)->where('status',2)->get();
        $completed=detail::where('user',$id)->where('status',1)->get();
-       return view('panel.detail')->with(array('completed'=>$completed,'user'=>$user,'detail'=>$detail));
+       return view('panel.detail')->with(array('del'=>$del,'completed'=>$completed,'user'=>$user,'active'=>$active));
     }
     
     

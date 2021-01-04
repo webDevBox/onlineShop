@@ -4,7 +4,7 @@
     
 <div class="row">
 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
-    <h3 class="text-center"> {{$user->name}} Details </h3>
+    <h3> {{$user->name}} Details </h3>
     @if(Session::has('success'))
     <p class="col-lg-4 col-md-4 col-sm-4 col-xs-4 alert text-center {{ Session::get('alert-class', 'alert-success') }}">
     {{ Session::get('success') }} </p>
@@ -25,7 +25,15 @@
 
 </div> 
 
+<div class="row text-center">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <button class="btn btn-success active_btn">Active Orders</button>
+    <button class="btn btn-success complete_btn mx-2">Complete Orders</button>
+    <button class="btn btn-success del_btn mx-2">Deleted Orders</button>
+  </div>
+</div>
 
+<div class="active">
 <div class="row mt-3">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <h4 class="text-success">Active Orders</h4>
@@ -50,7 +58,7 @@
 </thead>
 <tbody id="myTable">
   
-    @foreach ($detail as $row)
+    @foreach ($active as $row)
     <tr>
         <td> {{$row->created_at}} </td>
         <td> {{$row->description}} </td>    
@@ -70,8 +78,10 @@
   </table>
 </div>
 
-<hr class="my-5">
+</div>
 
+
+<div class="complete" style="display:none;">
 <div class="row mt-3">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <h4 class="text-success">Completed Orders</h4>
@@ -108,7 +118,48 @@
 </tbody>
   </table>
 </div>
+</div>
 
+
+
+<div class="Delete" style="display:none;">
+<div class="row mt-3">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+        <h4 class="text-success">Completed Orders</h4>
+    </div>
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+    <input class="form-control" id="myInput1" type="text" placeholder="Search..">
+</div>
+</div>
+<div class="table-responsive mt-3">
+    <table class="table table-hover table-border">
+        
+<thead>
+    <tr>
+        <th> Date </th>
+        <th> Product </th>    
+        <th> Purchase Rate </th>    
+        <th> Delivery Charges </th>    
+        <th> Sale Rate </th>    
+        <th> Profit </th>    
+    </tr>  
+</thead>
+<tbody id="myTable1">
+  
+    @foreach ($del as $row)
+    <tr>
+        <td> {{$row->created_at}} </td>
+        <td> {{$row->description}} </td>    
+        <td> {{$row->purchase_rate}} </td>    
+        <td> {{$row->dc}} </td>    
+        <td> {{$row->sale_rate}} </td>    
+        <td> {{$row->profit}} </td>        
+    </tr>
+    @endforeach
+</tbody>
+  </table>
+</div>
+</div>
 
 
 
@@ -162,4 +213,32 @@
       });
     });
     </script>
+
+<script>
+  $('.active_btn').click(function()
+  {
+    $('.active').attr('style','block');
+    $('.complete').attr('style','none');
+    $('.delete').attr('style','none');
+  });
+  </script>
+  <script>
+  
+  $('.complete_btn').click(function()
+  {
+    $('.active').attr('style','none');
+    $('.complete').attr('style','block');
+    $('.delete').attr('style','none');
+  });
+  
+</script>
+  <script>
+  $('.del_btn').click(function()
+  {
+    $('.active').attr('style','none');
+    $('.complete').attr('style','none');
+    $('.delete').attr('style','block');
+  });
+</script>
+
 @endsection
