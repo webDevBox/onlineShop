@@ -33,7 +33,7 @@
   </div>
 </div>
 
-<div class="active">
+<div class="active" style="">
 <div class="row mt-3">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <h4 class="text-success">Active Orders</h4>
@@ -125,10 +125,10 @@
 <div class="Delete" style="display:none;">
 <div class="row mt-3">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-        <h4 class="text-success">Completed Orders</h4>
+        <h4 class="text-success">Deleted Orders</h4>
     </div>
 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
-    <input class="form-control" id="myInput1" type="text" placeholder="Search..">
+    <input class="form-control" id="myInput2" type="text" placeholder="Search..">
 </div>
 </div>
 <div class="table-responsive mt-3">
@@ -144,7 +144,7 @@
         <th> Profit </th>    
     </tr>  
 </thead>
-<tbody id="myTable1">
+<tbody id="myTable2">
   
     @foreach ($del as $row)
     <tr>
@@ -196,6 +196,17 @@
       $("#myInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    </script>
+  
+  <script>
+    $(document).ready(function(){
+      $("#myInput2").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable2 tr").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
