@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2021 at 01:13 PM
+-- Generation Time: Jan 11, 2021 at 05:10 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -37,6 +37,7 @@ CREATE TABLE `details` (
   `sale_rate` int(11) NOT NULL,
   `profit` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 0 COMMENT '0=active , 1=Complete , 2=delete',
+  `latest` int(11) NOT NULL DEFAULT 0 COMMENT '0=latest , 1=old',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -45,8 +46,10 @@ CREATE TABLE `details` (
 -- Dumping data for table `details`
 --
 
-INSERT INTO `details` (`id`, `user`, `description`, `purchase_rate`, `dc`, `sale_rate`, `profit`, `status`, `created_at`, `updated_at`) VALUES
-(1, 4, 'Trip', 100, 50, 1000, 850, 1, '2021-01-03 07:12:15', '2021-01-03 07:12:40');
+INSERT INTO `details` (`id`, `user`, `description`, `purchase_rate`, `dc`, `sale_rate`, `profit`, `status`, `latest`, `created_at`, `updated_at`) VALUES
+(1, 4, 'Trip', 100, 50, 1000, 850, 1, 1, '2021-01-03 07:12:15', '2021-01-11 11:06:30'),
+(2, 4, 'FABB', 500, 100, 1000, 400, 2, 1, '2021-01-11 09:30:53', '2021-01-11 11:00:01'),
+(3, 4, 'Ragbi', 100, 10, 500, 390, 0, 1, '2021-01-11 09:31:28', '2021-01-11 11:03:20');
 
 -- --------------------------------------------------------
 
@@ -69,7 +72,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2021_01_02_112359_add_user_role', 2),
 (4, '2021_01_02_141329_add_status', 3),
 (5, '2021_01_03_094141_create_details_table', 4),
-(7, '2021_01_03_114626_add_status_detail', 5);
+(7, '2021_01_03_114626_add_status_detail', 5),
+(8, '2021_01_11_151111_add_lat_order', 6);
 
 -- --------------------------------------------------------
 
@@ -129,13 +133,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `details`
 --
 ALTER TABLE `details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`

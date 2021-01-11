@@ -39,8 +39,10 @@ class PanelController extends Controller
         {
             return redirect('/');
         }
+        $summ=detail::orderBy('id','desc')->where('latest',0)->get();
         $buyer=User::where('userRole',2)->orderBy('id','desc')->where('status',0)->get();
-        return view('panel.dashboard',['buyer'=>$buyer]);
+        $count=count($summ);
+        return view('panel.dashboard')->with(array('count'=>$count,'summ'=>$summ,'buyer'=>$buyer));
     }
 
 

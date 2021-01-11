@@ -21,7 +21,8 @@ class AuthController extends Controller
                 {
                     if(Auth::user()->userRole == 1)
                     {
-                    return redirect('/dashboard');
+                        $status=1;
+                    return redirect('/dashboard')->with('status',$status);
                     }
                     else
                     {

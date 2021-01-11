@@ -54,6 +54,44 @@
 </div>
 </div>
 
+<div class="table-responsive mt-3" style="opacity: 0;">
+  <table id="summ_table" class="table table-hover table-border">
+<thead>
+  <tr>
+      <th> Date </th>
+      <th> Product </th>    
+      <th> Purchase Rate </th>    
+      <th> Delivery Charges </th>    
+      <th> Sale Rate </th>    
+      <th> Buyer </th>    
+      <th> Profit </th>    
+  </tr>  
+</thead>
+<tbody id="myTable2">
+
+  @foreach ($summ as $row)
+  @php
+      $user=\App\Models\User::find($row->user);
+  @endphp
+  <tr>
+      <td> {{$row->created_at}} </td>
+      <td> {{$row->description}} </td>    
+      <td> {{$row->purchase_rate}} </td>    
+      <td> {{$row->dc}} </td>    
+      <td> {{$row->sale_rate}} </td>    
+      <td> {{$user->name}} </td>    
+      <td> {{$row->profit}} </td>        
+  </tr>
+  @endforeach
+</tbody>
+</table>
+</div>
+
+@php
+    $date=\Carbon\Carbon::now();
+@endphp
+<input type="text" name="" id="count" value="{{$count}}" style="display: none;">
+<input type="text" name="" id="date" value="{{$date}}" style="display: none;">
 
 <div class="modal fade" id="buyer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -87,4 +125,30 @@
       });
     });
     </script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script type="text/javascript">
+    var count=document.getElementById("count").value;
+    if(count > 0)
+    {
+    html2canvas(document.getElementById('summ_table'), {
+    onrendered: function (canvas) {
+    var data = canvas.toDataURL();
+    var id = $('#date').val();
+    var docDefinition = {
+    content: [{
+    image: data,
+    width: 500
+    }]
+    };
+    pdfMake.createPdf(docDefinition).download(id+".pdf");
+    }
+    });
+    }
+
+    </script>
+@php
+    \App\Models\detail::where('latest',0)->update(['latest'=>1]);
+@endphp
 @endsection
