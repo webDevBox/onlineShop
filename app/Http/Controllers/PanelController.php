@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\detail;
-
+use Carbon\Carbon;
 class PanelController extends Controller
 {
     protected $user;
@@ -166,6 +166,26 @@ class PanelController extends Controller
        $del=detail::where('user',$id)->where('status',2)->get();
        $completed=detail::where('user',$id)->where('status',1)->get();
        return view('panel.detail')->with(array('del'=>$del,'completed'=>$completed,'user'=>$user,'active'=>$active));
+    }
+    
+    //Summary Orders
+    public function summary()
+    {
+        if (Auth::check()) {
+            if(Auth::user()->userRole != 1)
+            {
+                return redirect('/');
+            }
+        }
+        else
+        {
+            return redirect('/');
+        }
+       $active=detail::where('status',0)->get();
+       $del=detail::where('status',2)->get();
+       $comp=detail::where('status',1)->get();
+       $summ=detail::orderBy('id','desc')->get();
+       return view('panel.summary')->with(array('summ'=>$summ,'active'=>$active,'del'=>$del,'comp'=>$comp));
     }
     
     

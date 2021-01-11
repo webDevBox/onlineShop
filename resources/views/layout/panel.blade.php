@@ -33,13 +33,13 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">Home</a>
+                <a class="nav-link" aria-current="page" href="{{route('dashboard')}}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Summary</a>
+                <a class="nav-link" aria-current="page" href="{{route('summary')}}">Summary</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{route('del_buyer_list')}}">Deleted Buyers</a>
+                <a class="nav-link" aria-current="page" href="{{route('del_buyer_list')}}">Deleted Buyers</a>
               </li>
               
               
