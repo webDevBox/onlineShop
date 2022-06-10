@@ -9,7 +9,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    //Login
+    //Logi
     public function login(Request $request)
     {
         if(isset($request->email) && isset($request->password))
