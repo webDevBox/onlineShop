@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PanelController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,10 @@ Route::get('/active_user/{id}',[PanelController::class , 'active_user'])->name('
 Route::get('/edit_user/{id}',[PanelController::class , 'edit_user'])->name('edit_user');
 Route::get('/complete_order/{id}',[PanelController::class , 'complete_order'])->name('complete_order');
 Route::get('/detail_user/{id}',[PanelController::class , 'detail_user'])->name('detail_user');
+
+Route::group(['prefix' => 'product','middleware' => 'auth.admin'], function(){
+Route::get('/',[ProductController::class, 'index'])->name('products');
+Route::post('/create',[ProductController::class, 'store'])->name('addProduct');
+Route::get('/delete/{id}',[ProductController::class, 'destroy'])->name('del_product');
+Route::get('/edit/{id}',[ProductController::class, 'edit'])->name('edit_product');
+});

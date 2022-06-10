@@ -69,7 +69,7 @@
 </thead>
 <tbody id="myTable2">
 
-  @foreach ($summ as $row)
+  {{-- @foreach ($summ as $row)
   @php
       $user=\App\Models\User::find($row->user);
   @endphp
@@ -82,7 +82,7 @@
       <td> {{$user->name}} </td>    
       <td> {{$row->profit}} </td>        
   </tr>
-  @endforeach
+  @endforeach --}}
 </tbody>
 </table>
 </div>
@@ -90,7 +90,7 @@
 @php
     $date=\Carbon\Carbon::now();
 @endphp
-<input type="text" name="" id="count" value="{{$count}}" style="display: none;">
+{{-- <input type="text" name="" id="count" value="{{$count}}" style="display: none;"> --}}
 <input type="text" name="" id="date" value="{{$date}}" style="display: none;">
 
 <div class="modal fade" id="buyer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -149,6 +149,6 @@
 
     </script>
 @php
-    \App\Models\detail::where('latest',0)->update(['latest'=>1]);
+    // \App\Models\detail::where('latest',0)->update(['latest'=>1]);
 @endphp
 @endsection

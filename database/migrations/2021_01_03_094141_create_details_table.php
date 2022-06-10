@@ -14,13 +14,16 @@ class CreateDetailsTable extends Migration
     public function up()
     {
         Schema::create('details', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user');
-            $table->string('description');
-            $table->integer('purchase_rate');
-            $table->integer('dc');
-            $table->integer('sale_rate');
-            $table->integer('profit');
+            $table->id();
+            
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
+            
+            $table->bigInteger('total');
+            $table->bigInteger('paid');
             $table->timestamps();
         });
     }

@@ -41,6 +41,9 @@
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="{{route('del_buyer_list')}}">Deleted Buyers</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{{route('products')}}">Products</a>
+              </li>
               
               
             </ul>

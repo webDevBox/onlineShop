@@ -3,7 +3,7 @@
 @section('content')
     
 <div class="row">
-    <h1 class="text-center text-success mt-2"> Login Form </h1>
+    <h1 class="text-center text-success mt-2"> Open Shop </h1>
     @if(Session::has('success'))
     <p class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 col-sm-4 col-xs-4 alert text-center {{ Session::get('alert-class', 'alert-success') }}">
     {{ Session::get('success') }} </p>
@@ -17,7 +17,7 @@
             @csrf
             <div class="form-group">
                 <label for=""> Email </label>
-                <input type="email" name="email" class="form-control" placeholder="Enter Your Email Address">
+                <input type="text" name="email" class="form-control" placeholder="Enter Your Email Address">
             </div>
             <div class="form-group">
                 <label for=""> Password </label>
