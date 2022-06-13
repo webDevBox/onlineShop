@@ -24,6 +24,8 @@ class CreateDetailsTable extends Migration
             
             $table->bigInteger('total');
             $table->bigInteger('paid');
+
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

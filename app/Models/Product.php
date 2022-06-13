@@ -16,6 +16,6 @@ class Product extends Model
 
     public function getCreatedAtAttribute($created_at)
     {
-        return Carbon::createFromFormat('Y-m-d', $created_at)->diffForHumans();
+        return Carbon::createFromFormat('Y-m-d H:i:s', $created_at)->diffForHumans();
     }
 }

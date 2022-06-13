@@ -26,29 +26,22 @@
       <thead>
           <tr>
               <th> Date </th>
-              <th> Product </th>    
-              <th> Purchase Rate </th>    
-              <th> Delivery Charges </th>    
-              <th> Sale Rate </th>    
+              <th> Product </th>
               <th> Buyer </th>    
-              <th> Profit </th>    
+              <th> Total </th>    
+              <th> Remaining </th>    
               <th> Action </th>    
           </tr>  
       </thead>
       <tbody id="myTable">
         
           @foreach ($active as $row)
-          @php
-          $user=\App\Models\User::find($row->user);
-      @endphp
           <tr>
               <td> {{$row->created_at}} </td>
-              <td> {{$row->description}} </td>    
-              <td> {{$row->purchase_rate}} </td>    
-              <td> {{$row->dc}} </td>    
-              <td> {{$row->sale_rate}} </td>    
-              <td> {{$user->name}} </td>    
-              <td> {{$row->profit}} </td>    
+              <td> {{$row->product->name}} </td>    
+              <td> {{$row->user->name}} </td>    
+              <td> {{$row->total}} </td>  
+              <td> {{$row->paid}} </td>  
               <td> 
                   <div class="btn-group">
                       <a href="{{route('del_order',array('id'=>$row->id))}}" title="Delete Order" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
@@ -77,13 +70,11 @@
               
       <thead>
           <tr>
-              <th> Date </th>
-              <th> Product </th>    
-              <th> Purchase Rate </th>    
-              <th> Delivery Charges </th>    
-              <th> Sale Rate </th>    
-              <th> Buyer </th>    
-              <th> Profit </th>    
+            <th> Date </th>
+            <th> Product </th>
+            <th> Buyer </th>    
+            <th> Total </th>    
+            <th> Remaining </th>   
           </tr>  
       </thead>
       <tbody id="myTable1">
@@ -172,7 +163,7 @@
 </thead>
 <tbody id="myTable2">
   
-    @foreach ($summ as $row)
+    @foreach ($deatils as $row)
     @php
         $user=\App\Models\User::find($row->user);
     @endphp

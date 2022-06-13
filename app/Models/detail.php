@@ -12,4 +12,18 @@ class detail extends Model
     protected $hidden = [
         'created_at', 'updated_at',
      ];
+
+     protected $with = [
+         'user', 'product'
+     ];
+
+     public function user()
+     {
+         return $this->belongsTo(User::class);
+     }
+     
+     public function product()
+     {
+         return $this->belongsTo(Product::class);
+     }
 }

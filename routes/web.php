@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::post('/edit_user_db/{id}',[PanelController::class , 'edit_user_db'])->nam
 Route::get('/logout',[AuthController::class , 'logout'])->name('logout');
 Route::get('/dashboard',[PanelController::class , 'dashboard'])->name('dashboard');
 Route::get('/del_buyer_list',[PanelController::class , 'del_buyer_list'])->name('del_buyer_list');
-Route::get('/summary',[PanelController::class , 'summary'])->name('summary');
+
 Route::get('/del_user/{id}',[PanelController::class , 'del_user'])->name('del_user');
 Route::get('/del_order/{id}',[PanelController::class , 'del_order'])->name('del_order');
 Route::get('/active_user/{id}',[PanelController::class , 'active_user'])->name('active_user');
@@ -37,4 +38,8 @@ Route::get('/',[ProductController::class, 'index'])->name('products');
 Route::post('/create',[ProductController::class, 'store'])->name('addProduct');
 Route::get('/delete/{id}',[ProductController::class, 'destroy'])->name('del_product');
 Route::get('/edit/{id}',[ProductController::class, 'edit'])->name('edit_product');
+Route::post('/update/{id}',[ProductController::class, 'update'])->name('updateProduct');
+
+//Details Routes
+Route::get('/summary', [DetailController::class , 'index'])->name('summary');
 });

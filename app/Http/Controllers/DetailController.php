@@ -8,10 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\detail;
 use App\Models\Product;
-use App\Http\Requests\ProductRequest;
 use Carbon\Carbon;
 
-class ProductController extends Controller
+class DetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +19,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::get();
-        return view('panel.product.index',compact('products'));
+        $active=detail::where('status',0)->get();
+        $del=detail::where('status',2)->get();
+        $comp=detail::where('status',1)->get();
+        $deatils=detail::orderBy('id','desc')->get();
+        return view('panel.summary')->with(array('deatils'=>$deatils,'active'=>$active,'del'=>$del,'comp'=>$comp));
     }
 
     /**
@@ -40,13 +42,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
-        Product::create([
-            'name' => $request->name,
-            'price' => $request->price
-        ]);
-        return redirect()->back()->withSuccess('Product Added');
+        //
     }
 
     /**
@@ -68,8 +66,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product=Product::find($id);
-       return view('panel.product.edit',compact('product'));
+        //
     }
 
     /**
@@ -79,13 +76,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        Product::whereId($id)->update([
-            'name' => $request->name,
-            'price' => $request->price
-        ]);
-        return redirect()->back()->withSuccess('Product Updated');
+        //
     }
 
     /**
@@ -96,7 +89,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::whereId($id)->delete();
-        return redirect()->back()->withSuccess('Product Deleted');
+        //
     }
 }

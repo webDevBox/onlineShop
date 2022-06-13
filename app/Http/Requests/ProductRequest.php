@@ -23,9 +23,21 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|unique:products,name',
-            'price' => 'required|numeric'
-        ];
+        if(isset($this->id))
+        {
+            $rules = [
+                'name' => 'required|unique:products,name,'.$this->id,
+                'price' => 'required|numeric'
+            ];
+        }
+        else
+        {
+            $rules = [
+                'name' => 'required|unique:products,name',
+                'price' => 'required|numeric'
+            ];
+        }
+
+        return $rules;
     }
 }
