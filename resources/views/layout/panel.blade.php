@@ -19,7 +19,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    
   
-  <title>Online Store</title>
+  <title>{{ config('app.name') }}</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,9 +35,9 @@
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="{{route('dashboard')}}">Home</a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="{{route('summary')}}">Summary</a>
-              </li>
+              </li> --}}
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="{{route('del_buyer_list')}}">Deleted Buyers</a>
               </li>
@@ -54,6 +54,12 @@
           <a href="{{route('logout')}}" class="btn btn-danger ml-auto d-inline"> Logout </a>
         </div>
       </nav>
+      @if (Session::has('success'))
+                <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
+            @endif
+            @if (Session::has('error'))
+                <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
+            @endif
     @yield('content')
 </body>
 </html>

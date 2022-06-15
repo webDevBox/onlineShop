@@ -17,13 +17,65 @@ class DetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $active=detail::where('status',0)->get();
-        $del=detail::where('status',2)->get();
-        $comp=detail::where('status',1)->get();
-        $deatils=detail::orderBy('id','desc')->get();
-        return view('panel.summary')->with(array('deatils'=>$deatils,'active'=>$active,'del'=>$del,'comp'=>$comp));
+        $pending=detail::whereStatus(0)->whereUserId($id)->get();
+        $paid=detail::whereStatus(1)->whereUserId($id)->get();
+        $deatils=detail::orderBy('id','desc')->whereUserId($id)->get();
+        return view('panel.summary',compact('id','pending','paid','deatils'));
+    }
+    
+    public function createOrder($id)
+    {
+        $products = Product::get();
+        return view('panel.order',compact('id','products'));
+    }
+
+    public function change(Request $request)
+    {
+        $id = $request->id;
+        $value = $request->val;
+        $detail = detail::find($id);
+        if($detail->total < $value)
+        {
+            return [
+                'error' => 'Remaining value must be less or equal to total amount'
+            ];
+        }
+        $status = 0;
+        if($detail->total == $value)
+            $status = 1;
+
+        $detail->update([
+            'paid' => $value,
+            'status' => $status
+        ]);
+
+        return [
+            'success' => 'Record Updated',
+            'status' => $status
+        ];
+        
+    }
+
+    public function addOrder(Request $request)
+    {
+        $product = Product::find($request->product);
+        if($product->price < $request->paid)
+        {
+            return redirect()->back()->withError('Paid value must be less or equal to total price of product');
+        }
+        $status = 0;
+        if($product->price == $request->paid)
+            $status = 1;
+        detail::create([
+            'user_id' => $request->id,
+            'product_id' => $request->product,
+            'total' => $product->price,
+            'paid' => $request->paid,
+            'status' => $status
+        ]);
+        return redirect()->route('user_detail',[$request->id])->withSuccess('Record Created Successfully');
     }
 
     /**

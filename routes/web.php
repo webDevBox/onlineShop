@@ -27,19 +27,23 @@ Route::get('/dashboard',[PanelController::class , 'dashboard'])->name('dashboard
 Route::get('/del_buyer_list',[PanelController::class , 'del_buyer_list'])->name('del_buyer_list');
 
 Route::get('/del_user/{id}',[PanelController::class , 'del_user'])->name('del_user');
-Route::get('/del_order/{id}',[PanelController::class , 'del_order'])->name('del_order');
 Route::get('/active_user/{id}',[PanelController::class , 'active_user'])->name('active_user');
 Route::get('/edit_user/{id}',[PanelController::class , 'edit_user'])->name('edit_user');
 Route::get('/complete_order/{id}',[PanelController::class , 'complete_order'])->name('complete_order');
 Route::get('/detail_user/{id}',[PanelController::class , 'detail_user'])->name('detail_user');
 
-Route::group(['prefix' => 'product','middleware' => 'auth.admin'], function(){
-Route::get('/',[ProductController::class, 'index'])->name('products');
-Route::post('/create',[ProductController::class, 'store'])->name('addProduct');
-Route::get('/delete/{id}',[ProductController::class, 'destroy'])->name('del_product');
-Route::get('/edit/{id}',[ProductController::class, 'edit'])->name('edit_product');
-Route::post('/update/{id}',[ProductController::class, 'update'])->name('updateProduct');
+Route::group(['middleware' => 'auth.admin'], function(){
+    Route::prefix('product')->group(function () {
+        Route::get('/',[ProductController::class, 'index'])->name('products');
+        Route::post('/create',[ProductController::class, 'store'])->name('addProduct');
+        Route::get('/delete/{id}',[ProductController::class, 'destroy'])->name('del_product');
+        Route::get('/edit/{id}',[ProductController::class, 'edit'])->name('edit_product');
+        Route::post('/update/{id}',[ProductController::class, 'update'])->name('updateProduct');
+    });
+    //Details Routes
+    Route::get('/detail_user/{id}',[DetailController::class , 'index'])->name('user_detail');
+    Route::get('/completeOrder',[DetailController::class , 'change'])->name('completeOrder');
+    Route::get('/createOrder/{id}',[DetailController::class , 'createOrder'])->name('createOrder');
+    Route::post('/addOrder',[DetailController::class , 'addOrder'])->name('addOrder');
 
-//Details Routes
-Route::get('/summary', [DetailController::class , 'index'])->name('summary');
 });

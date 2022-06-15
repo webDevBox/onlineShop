@@ -44,7 +44,7 @@
             <div class="btn-group">
                 <a href="{{route('del_user',array('id'=>$row->id))}}" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 <a href="{{route('edit_user',array('id'=>$row->id))}}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                <a href="{{route('detail_user',array('id'=>$row->id))}}" class="btn btn-success"><i class="fa fa-info" aria-hidden="true"></i></a>
+                <a href="{{route('user_detail',array('id'=>$row->id))}}" class="btn btn-success"><i class="fa fa-info" aria-hidden="true"></i></a>
             </div>
         </td>    
     </tr>
